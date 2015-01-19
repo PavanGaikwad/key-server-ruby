@@ -41,4 +41,38 @@ describe KeyServer do
     # (n+1)th key must be nil
     expect(@key_server.dispatch_key).to eq(nil)
   end
+
+  it "should delete a key" do 
+    @key_server = KeyServer.new
+    @key_server.generate_keys
+
+    key_dispatched = @key_server.dispatch_key
+
+    expect(@key_server.all_keys[:available].include?(key_dispatched)).to eq(false)
+    expect(@key_server.all_keys[:used].include?(key_dispatched)).to eq(true)
+
+    @key_server.delete_key(key_dispatched)
+
+    expect(@key_server.all_keys[:available].include?(key_dispatched)).to eq(false)
+    expect(@key_server.all_keys[:used].include?(key_dispatched)).to eq(false)
+
+  end
+
+  it "should unblock a key" do 
+    @key_server = KeyServer.new
+    @key_server.generate_keys
+
+    key_dispatched = @key_server.dispatch_key
+
+    expect(@key_server.all_keys[:available].include?(key_dispatched)).to eq(false)
+    expect(@key_server.all_keys[:used].include?(key_dispatched)).to eq(true)    
+
+    @key_server.unblock(key_dispatched)
+
+    expect(@key_server.all_keys[:available].include?(key_dispatched)).to eq(true)
+    expect(@key_server.all_keys[:used].include?(key_dispatched)).to eq(true)    
+  end
+
+  
+
 end
