@@ -17,3 +17,7 @@ Apart from these endpoints, following rules should be enforced:
 R1. All blocked keys should get released automatically within 60 secs if E3 is not called.
 
 No endpoint call should result in an iteration of whole set of keys i.e. no endpoint request should be O(n). They should either be O(lg n) or O(1).
+
+
+RUN :
+ruby keydriver.rb

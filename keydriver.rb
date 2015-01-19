@@ -1,6 +1,17 @@
 require_relative "key-server"
+
+puts "Commands : "
+puts "			generate"
+puts "			display"
+puts "			dispatch"
+puts "			delete"
+puts "			all"
+puts "			unblock"
+puts "			keep"
+
+
 k = KeyServer.new
-k.generate_keys
+
 scheduler = Rufus::Scheduler.new
 
 scheduler.every("5m") do
@@ -17,6 +28,7 @@ while true
   print ">> "
   cmd = gets.chomp
   case cmd
+  when "generate" then k.generate_keys
   when "dispatch" then puts k.dispatch_key
   when "display" then puts k.used_map
   when "all" then puts k.all_keys
