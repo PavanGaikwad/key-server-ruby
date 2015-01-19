@@ -68,11 +68,10 @@ class KeyServer
     current_slot = get_current_slot
 
     if @all_keys[:available].include?(key_to_keep_alive) || @all_keys[:used].include?(key_to_keep_alive)
-      puts "key is valid"
       ((current_slot-5)...current_slot).each do |slot|
-        puts "slot", slot
+        
         if @used_map[slot].include?(key_to_keep_alive)
-          puts "found key in slot", slot
+         
           @used_map[current_slot] << key_to_keep_alive if !@used_map[current_slot].include?(key_to_keep_alive)
           @used_map[slot].delete(key_to_keep_alive)
           if @all_keys[:available].include?(key_to_keep_alive)
@@ -105,7 +104,7 @@ class KeyServer
     current_slot = get_current_slot
     collected_keys = []
     (1..(current_slot-5)).each do |slot|
-      puts "del cleanup slot ",slot
+      
       collected_keys << @used_map[slot]
     end
     collected_keys.flatten!
